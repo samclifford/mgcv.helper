@@ -38,8 +38,8 @@
 vif.gam <- function(object){
 
   obj.sum <- summary(object)
-  s2 <- mod$sig2 # estimate of standard deviation of residuals
-  X <- mod$model # data used to fit the model
+  s2 <- obj$sig2 # estimate of standard deviation of residuals
+  X <- obj$model # data used to fit the model
   n <- nrow(X) # how many observations were used in fitting?
   v <- -1 # omit the intercept term, it can't inflate variance
   varbeta <- obj.sum$p.table[v,2]^2 # variance in estimates
