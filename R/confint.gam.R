@@ -4,7 +4,7 @@
 #' Computes confidence intervals for one or more parameters in a fitted model.
 #' This is a method specific to the \code{"gam"} class from package
 #' \code{"mgcv"}.
-#' @importFrom magrittr %>%
+#' @importFrom stats qt
 #' @param object a fitted model object of class \code{"gam"}.
 #' @param parm a specification of which parameters are to be given confidence
 #' intervals, either a vector of numbers or a vector of names. If missing, all
@@ -52,10 +52,10 @@ confint.gam <- function(object, parm = NULL, level = 0.95) {
   dplyr::inner_join(E, SE) %>%
     dplyr::filter(Term %in% parm) %>%
     dplyr::mutate(L = Estimate +
-             SE * qt(df = nu,
+             SE * stats::qt(df = nu,
                      p = (1 - level) / 2),
            U = Estimate +
-             SE * qt(df = nu,
+             SE * stats::qt(df = nu,
                      p = 1 - (1 - level) / 2)) %>%
     return
 

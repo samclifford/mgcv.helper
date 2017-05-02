@@ -8,6 +8,7 @@
 #' @return VIF.df A data frame consisting of the VIF values for each parametric
 #' term in a fitted Generalised Additive Model
 #'
+#' @importFrom stats var
 #' @export
 #'
 #' @examples
@@ -39,8 +40,8 @@ vif.gam <- function(object){
 
   obj.sum <- mgcv::summary.gam(object)
 
-  s2 <- obj$sig2 # estimate of standard deviation of residuals
-  X <- obj$model # data used to fit the model
+  s2 <- object$sig2 # estimate of standard deviation of residuals
+  X <- object$model # data used to fit the model
   n <- nrow(X) # how many observations were used in fitting?
   v <- -1 # omit the intercept term, it can't inflate variance
   varbeta <- obj.sum$p.table[v,2]^2 # variance in estimates
