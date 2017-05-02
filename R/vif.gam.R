@@ -37,7 +37,8 @@
 #'
 vif.gam <- function(object){
 
-  obj.sum <- summary(object)
+  obj.sum <- mgcv::summary.gam(object)
+
   s2 <- obj$sig2 # estimate of standard deviation of residuals
   X <- obj$model # data used to fit the model
   n <- nrow(X) # how many observations were used in fitting?

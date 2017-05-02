@@ -33,7 +33,7 @@
 confint.gam <- function(object, parm = NULL, level = 0.95) {
   # a method for extracting confidence intervals and returning a tidy data frame
 
-  obj.s <- summary.gam(object)
+  obj.s <- mgcv::summary.gam(object)
 
   E <- data.frame(Estimate = obj.s$p.coeff) %>%
     dplyr::mutate(Term = row.names(.)) %>%
