@@ -12,7 +12,6 @@
 #'
 #' @examples
 vif.mgcv <- function(mod){
-  require(mgcv)
 
   mod.sum <- summary(mod)
   s2 <- mod$sig2 # estimate of standard deviation of residuals
