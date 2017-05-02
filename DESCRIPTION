@@ -1,14 +1,17 @@
 Package: mgcv.helper
 Type: Package
 Title: Helper Functions for mgcv
-Version: 0.1.2
+Version: 0.1.3
 Author: Sam Clifford
 Maintainer: Sam Clifford <samuel.clifford@qut.edu.au>
 Description:
-    Use four spaces when indenting paragraphs within the Description.
+    This package provides a method for obtaining confidence intervals from a 
+    fitted gam object from mgcv the way we would expect an lm or nls object to,
+    and a way to calculate variance inflation factors for gam objects.  
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Imports: dplyr,
-    mgcv
+    mgcv,
+    magrittr

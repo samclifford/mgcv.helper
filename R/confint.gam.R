@@ -10,6 +10,7 @@
 #' intervals, either a vector of numbers or a vector of names. If missing, all
 #' parameters are considered.
 #' @param level the confidence level required.
+#' @param ... not implemented
 #'
 #' @return A tidy data frame containing parameter names, estimates and
 #' confidence intervals for parametric terms
@@ -30,18 +31,18 @@
 #' confint(fit1)
 #' confint(fit1, parm="y", level=0.8)
 #'
-confint.gam <- function(object, parm = NULL, level = 0.95) {
+confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
   # a method for extracting confidence intervals and returning a tidy data frame
 
   obj.s <- mgcv::summary.gam(object)
 
   E <- data.frame(Estimate = obj.s$p.coeff) %>%
-    dplyr::mutate(Term = row.names(.)) %>%
-    dplyr::select(Term, Estimate)
+    dplyr::mutate(., Term = row.names(.)) %>%
+    dplyr::select(., Term, Estimate)
 
   SE <- data.frame(SE = obj.s$se) %>%
-    dplyr::mutate(Term = row.names(.)) %>%
-    dplyr::select(Term, SE)
+    dplyr::mutate(., Term = row.names(.)) %>%
+    dplyr::select(., Term, SE)
 
   if (is.null(parm)){
     parm <- E$Term
@@ -50,13 +51,14 @@ confint.gam <- function(object, parm = NULL, level = 0.95) {
   nu <- obj.s$residual.df
 
   dplyr::inner_join(E, SE) %>%
-    dplyr::filter(Term %in% parm) %>%
-    dplyr::mutate(L = Estimate +
-             SE * stats::qt(df = nu,
-                     p = (1 - level) / 2),
-           U = Estimate +
-             SE * stats::qt(df = nu,
-                     p = 1 - (1 - level) / 2)) %>%
+    dplyr::filter(., Term %in% parm) %>%
+    dplyr::mutate(.,
+                  L = Estimate +
+                    SE * stats::qt(df = nu,
+                                   p = (1 - level) / 2),
+                  U = Estimate +
+                    SE * stats::qt(df = nu,
+                                   p = 1 - (1 - level) / 2)) %>%
     return
 
 }

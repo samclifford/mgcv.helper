@@ -4,7 +4,7 @@
 \alias{confint.gam}
 \title{Confidence Intervals for Model Parameters}
 \usage{
-\method{confint}{gam}(object, parm = NULL, level = 0.95)
+\method{confint}{gam}(object, parm = NULL, level = 0.95, ...)
 }
 \arguments{
 \item{object}{a fitted model object of class \code{"gam"}.}
@@ -14,6 +14,8 @@ intervals, either a vector of numbers or a vector of names. If missing, all
 parameters are considered.}
 
 \item{level}{the confidence level required.}
+
+\item{...}{not implemented}
 }
 \value{
 A tidy data frame containing parameter names, estimates and
