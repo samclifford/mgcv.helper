@@ -1,7 +1,7 @@
 Package: mgcv.helper
 Type: Package
 Title: Helper Functions for mgcv
-Version: 0.1.1
+Version: 0.1.2
 Author: Sam Clifford
 Maintainer: Sam Clifford <samuel.clifford@qut.edu.au>
 Description:
