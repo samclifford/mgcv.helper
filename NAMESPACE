@@ -2,5 +2,10 @@
 
 S3method(confint,gam)
 export(vif.gam)
+importFrom(dplyr,mutate)
+importFrom(dplyr,rename)
+importFrom(dplyr,select)
+importFrom(mgcv,summary.gam)
 importFrom(stats,qt)
 importFrom(stats,var)
+importFrom(tibble,tibble)

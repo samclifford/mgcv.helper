@@ -9,6 +9,8 @@
 #' term in a fitted Generalised Additive Model
 #'
 #' @importFrom stats var
+#' @importFrom mgcv summary.gam
+#' @importFrom tibble tibble
 #' @export
 #'
 #' @examples
@@ -49,9 +51,8 @@ vif.gam <- function(object){
   VIF <- varbeta/(s2/(n-1)*1/varXj) # the variance inflation factor, obtained by rearranging
   # var(beta_j) = s^2/(n-1) * 1/var(X_j) * VIF_j
 
-  VIF.df <- data.frame(variable=names(VIF),
-                       vif=VIF,
-                       row.names=NULL)
+  VIF.df <- tibble(variable=names(VIF),
+                       vif=VIF)
 
   return(VIF.df)
 }

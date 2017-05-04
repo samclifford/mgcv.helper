@@ -5,6 +5,11 @@
 #' This is a method specific to the \code{"gam"} class from package
 #' \code{"mgcv"}.
 #' @importFrom stats qt
+#' @importFrom tibble tibble
+#' @importFrom mgcv summary.gam
+#' @importFrom dplyr select
+#' @importFrom dplyr rename
+#' @importFrom dplyr mutate
 #' @param object a fitted model object of class \code{"gam"}.
 #' @param parm a specification of which parameters are to be given confidence
 #' intervals, either a vector of numbers or a vector of names. If missing, all
@@ -12,8 +17,9 @@
 #' @param level the confidence level required.
 #' @param ... not implemented
 #'
-#' @return A tidy data frame containing parameter names, estimates and
+#' @return A tidy data frame containing parameter names, Estimates and
 #' confidence intervals for parametric terms
+#'
 #' @export
 #'
 #' @examples
@@ -36,29 +42,37 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
 
   obj.s <- mgcv::summary.gam(object)
 
-  E <- data.frame(Estimate = obj.s$p.coeff) %>%
-    dplyr::mutate(., Term = row.names(.)) %>%
-    dplyr::select(., Term, Estimate)
+  E <- tibble(Estimate = obj.s$p.coeff) %>%
+    dplyr::mutate(., term = row.names(.)) %>%
+    dplyr::select(., term, Estimate)
 
-  SE <- data.frame(SE = obj.s$se) %>%
-    dplyr::mutate(., Term = row.names(.)) %>%
-    dplyr::select(., Term, SE)
+  SE <- tibble(se = obj.s$se) %>%
+    dplyr::mutate(., term = row.names(.)) %>%
+    dplyr::select(., term, se)
 
   if (is.null(parm)){
-    parm <- E$Term
+    parm <- E$term
   }
 
   nu <- obj.s$residual.df
 
-  dplyr::inner_join(E, SE) %>%
-    dplyr::filter(., Term %in% parm) %>%
+  my.tbl <- dplyr::inner_join(E, SE) %>%
+    dplyr::filter(., term %in% parm) %>%
     dplyr::mutate(.,
                   L = Estimate +
-                    SE * stats::qt(df = nu,
+                    se * stats::qt(df = nu,
                                    p = (1 - level) / 2),
                   U = Estimate +
-                    SE * stats::qt(df = nu,
-                                   p = 1 - (1 - level) / 2)) %>%
-    return
+                    se * stats::qt(df = nu,
+                                   p = 1 - (1 - level) / 2))
+
+  names(my.tbl)[3] <- "Std. Error"
+
+  names(my.tbl)[4] <- sprintf("%.1f%%",
+                              100*(1-level)/2)
+  names(my.tbl)[5] <- sprintf("%.1f%%",
+                              100*(1-(1-level)/2))
+
+  return(my.tbl)
 
 }

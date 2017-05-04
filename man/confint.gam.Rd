@@ -18,7 +18,7 @@ parameters are considered.}
 \item{...}{not implemented}
 }
 \value{
-A tidy data frame containing parameter names, estimates and
+A tidy data frame containing parameter names, Estimates and
 confidence intervals for parametric terms
 }
 \description{
