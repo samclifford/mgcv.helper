@@ -42,12 +42,16 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
 
   obj.s <- mgcv::summary.gam(object)
 
-  E <- tibble(Estimate = obj.s$p.coeff) %>%
-    dplyr::mutate(., term = row.names(.)) %>%
+  E <- obj.s$p.coeff %>%
+    tibble(Estimate = .,
+              term=names(.)) %>%
+    #dplyr::mutate(., term = row.names(.)) %>%
     dplyr::select(., term, Estimate)
 
-  SE <- tibble(se = obj.s$se) %>%
-    dplyr::mutate(., term = row.names(.)) %>%
+  SE <- obj.s$se %>%
+    tibble(se = .,
+           term = names(.)) %>%
+    #dplyr::mutate(., term = row.names(.)) %>%
     dplyr::select(., term, se)
 
   if (is.null(parm)){
