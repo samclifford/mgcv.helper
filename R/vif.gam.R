@@ -47,7 +47,9 @@ vif.gam <- function(object){
   n <- nrow(X) # how many observations were used in fitting?
   v <- -1 # omit the intercept term, it can't inflate variance
   varbeta <- obj.sum$p.table[v,2]^2 # variance in estimates
-  varXj <- apply(X=X[,row.names(obj.sum$p.table)[v]],MARGIN=2, var) # variance of all the explanatory variables
+  selected_col <- row.names(obj.sum$p.table)[v]
+  selected_col <- gsub("TRUE", "", selected_col)
+  varXj <- apply(X=X[, selected_col],MARGIN=2, var) # variance of all the explanatory variables
   VIF <- varbeta/(s2/(n-1)*1/varXj) # the variance inflation factor, obtained by rearranging
   # var(beta_j) = s^2/(n-1) * 1/var(X_j) * VIF_j
 
