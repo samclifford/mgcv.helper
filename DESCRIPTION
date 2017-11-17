@@ -2,8 +2,7 @@ Package: mgcv.helper
 Type: Package
 Title: Helper Functions for mgcv
 Version: 0.1.5
-Author: Sam Clifford
-Maintainer: Sam Clifford <samuel.clifford@qut.edu.au>
+Authors@R: person("Sam", "Clifford", role = c("aut", "cre"), email = "samuel.clifford@qut.edu.au")
 Description:
     This package provides a method for obtaining confidence intervals from a 
     fitted gam object from mgcv the way we would expect an lm or nls object to,
