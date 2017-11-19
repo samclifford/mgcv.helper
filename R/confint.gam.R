@@ -1,3 +1,6 @@
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`
 
 #' Confidence Intervals for Model Parameters
 #'
@@ -43,13 +46,13 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
   obj.s <- mgcv::summary.gam(object)
 
   E <- obj.s$p.coeff %>%
-    tibble(Estimate = .,
+    tibble::tibble(Estimate = .,
               term=names(.)) %>%
     #dplyr::mutate(., term = row.names(.)) %>%
     dplyr::select(., term, Estimate)
 
   SE <- obj.s$se %>%
-    tibble(se = .,
+    tibble::tibble(se = .,
            term = names(.)) %>%
     #dplyr::mutate(., term = row.names(.)) %>%
     dplyr::select(., term, se)
