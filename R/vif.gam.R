@@ -53,8 +53,8 @@ vif.gam <- function(object){
   VIF <- varbeta/(s2/(n-1)*1/varXj) # the variance inflation factor, obtained by rearranging
   # var(beta_j) = s^2/(n-1) * 1/var(X_j) * VIF_j
 
-  VIF.df <- tibble(variable=names(VIF),
-                       vif=VIF)
+  VIF.df <- tibble::tibble(variable=names(VIF),
+                           vif=VIF)
 
   return(VIF.df)
 }
