@@ -128,14 +128,14 @@ confidence intervals for parametric terms</p>
 
 <span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/mgcv/topics/gam'>gam</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='no'>z</span> ~ <span class='no'>y</span> + <span class='fu'><a href='http://www.rdocumentation.org/packages/mgcv/topics/s'>s</a></span>(<span class='no'>x</span>))
 
-<span class='fu'>confint</span>(<span class='no'>fit1</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = "term"</span></div><div class='output co'>#&gt; # A tibble: 2 x 5
-#&gt;          term   Estimate `Std. Error`    `2.5%`    `97.5%`
-#&gt;         &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-#&gt; 1 (Intercept) -0.9494979   0.09135369 -1.130810 -0.7681861
-#&gt; 2           y  1.7176761   0.15180645  1.416382  2.0189699</div><div class='input'><span class='fu'>confint</span>(<span class='no'>fit1</span>, <span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"y"</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>0.8</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = "term"</span></div><div class='output co'>#&gt; # A tibble: 1 x 5
-#&gt;    term Estimate `Std. Error`  `10.0%`  `90.0%`
-#&gt;   &lt;chr&gt;    &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-#&gt; 1     y 1.717676    0.1518064 1.521794 1.913558</div><div class='input'>
+<span class='fu'>confint</span>(<span class='no'>fit1</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = "term"</span></div><div class='output co'>#&gt; # A tibble: 2 x 6
+#&gt;          term   Estimate `Std. Error` Statistic    `2.5%`    `97.5%`
+#&gt;         &lt;chr&gt;      &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+#&gt; 1 (Intercept) -0.9494979   0.09135369 -10.39365 -1.130810 -0.7681861
+#&gt; 2           y  1.7176761   0.15180645  11.31491  1.416382  2.0189699</div><div class='input'><span class='fu'>confint</span>(<span class='no'>fit1</span>, <span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"y"</span>, <span class='kw'>level</span><span class='kw'>=</span><span class='fl'>0.8</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = "term"</span></div><div class='output co'>#&gt; # A tibble: 1 x 6
+#&gt;    term Estimate `Std. Error` Statistic  `10.0%`  `90.0%`
+#&gt;   &lt;chr&gt;    &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     y 1.717676    0.1518064  11.31491 1.521794 1.913558</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

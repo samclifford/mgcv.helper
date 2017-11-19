@@ -20,39 +20,60 @@
 #' @importFrom stats qt
 #'
 #'
-get_lengths_internal <- function(x){
-  unlist(lapply(x[c("x", "y","fit")], FUN="length"))
-}
+#' @export
+#'
+#' @examples
+#' set.seed(101)
+#' library(dplyr)
+#' library(mgcv)
+#' dat <- data.frame(x = runif(n=100),
+#'                   y = runif(n=100)) %>%
+#'   dplyr::mutate(z = rnorm(n=100,
+#'                    mean = 1 - 2*x - sin(2*pi*y),
+#'                    sd = 0.1))
+#'
+#' fit1 <- gam(data=dat, z ~ y + s(x))
+#'
+#' tidy_smooths(fit1, dimension=1)
+#'
+#'
+#'
 
-extract_smooth_internal <- function(X, dimension){
-
-  if (dimension == 1){
-    tidied <- with(X,
-                   data.frame(x=x,
-                              y=fit,
-                              ymin=fit - se*se.mult,
-                              ymax=fit + se*se.mult,
-                              xlab=xlab,
-                              ylab=ylab))
-  } else {
-    tidied <- with(X,
-                   data.frame(x=x,
-                              y=y,
-                              z=fit,
-                              zmin=fit - se*se.mult,
-                              zmax=fit + se*se.mult,
-                              xlab=xlab,
-                              ylab=ylab,
-                              main=main))
-  }
-
-
-  return(tidied)
-
-}
 
 #' @export
 tidy_smooths <- function(object, dimension=1, level=0.95){
+
+  extract_smooth_internal <- function(X, dimension){
+
+    if (dimension == 1){
+      tidied <- with(X,
+                     data.frame(x=x,
+                                y=fit,
+                                ymin=fit - se*se.mult,
+                                ymax=fit + se*se.mult,
+                                xlab=xlab,
+                                ylab=ylab))
+    } else {
+      tidied <- with(X,
+                     data.frame(x=x,
+                                y=y,
+                                z=fit,
+                                zmin=fit - se*se.mult,
+                                zmax=fit + se*se.mult,
+                                xlab=xlab,
+                                ylab=ylab,
+                                main=main))
+    }
+
+
+    return(tidied)
+
+  }
+
+  # this is awful practice
+  get_lengths_internal <- function(x){
+    unlist(lapply(x[c("x", "y","fit")], FUN="length"))
+  }
 
   # can only handle 1 and 2d smooths at this point
 
@@ -76,3 +97,4 @@ tidy_smooths <- function(object, dimension=1, level=0.95){
                                dimension=dimension))))
 
 }
+

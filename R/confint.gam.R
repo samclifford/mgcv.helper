@@ -1,7 +1,3 @@
-#' @importFrom magrittr %>%
-#' @export
-magrittr::`%>%`
-
 #' Confidence Intervals for Model Parameters
 #'
 #' Computes confidence intervals for one or more parameters in a fitted model.
@@ -51,6 +47,8 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
     #dplyr::mutate(., term = row.names(.)) %>%
     dplyr::select(., term, Estimate)
 
+
+
   SE <- obj.s$se %>%
     tibble::tibble(se = .,
            term = names(.)) %>%
@@ -66,6 +64,7 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
   my.tbl <- dplyr::inner_join(E, SE) %>%
     dplyr::filter(., term %in% parm) %>%
     dplyr::mutate(.,
+                  Statistic = Estimate/se,
                   L = Estimate +
                     se * stats::qt(df = nu,
                                    p = (1 - level) / 2),
@@ -75,9 +74,9 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
 
   names(my.tbl)[3] <- "Std. Error"
 
-  names(my.tbl)[4] <- sprintf("%.1f%%",
-                              100*(1-level)/2)
   names(my.tbl)[5] <- sprintf("%.1f%%",
+                              100*(1-level)/2)
+  names(my.tbl)[6] <- sprintf("%.1f%%",
                               100*(1-(1-level)/2))
 
   return(my.tbl)
