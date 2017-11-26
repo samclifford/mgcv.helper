@@ -5,7 +5,7 @@
 #' \code{"mgcv"}.
 #' @param object a fitted model object of class \code{"gam"}.
 #' @param dimension the dimension of the smooths that are desired for extraction.
-#' @param parm a specification of which parameters are to be given confidence
+#' @param parms a specification of which parameters are to be given confidence
 #' intervals, either a vector of numbers or a vector of names. If missing, all
 #' parameters are considered (not yet implemented).
 #' @param level the confidence level required.
@@ -16,6 +16,7 @@
 #'
 #'
 #' @importFrom tibble as.tibble
+#' @importFrom dplyr filter
 #' @importFrom mgcv plot.gam
 #' @importFrom stats qt
 #'
@@ -42,7 +43,7 @@
 
 
 #' @export
-tidy_smooths <- function(object, dimension=1, level=0.95){
+tidy_smooths <- function(object, dimension=1, level=0.95, parms=NULL){
 
   extract_smooth_internal <- function(X, dimension){
 
@@ -54,6 +55,11 @@ tidy_smooths <- function(object, dimension=1, level=0.95){
                                 ymax=fit + se*se.mult,
                                 xlab=xlab,
                                 ylab=ylab))
+      
+      if (!is.null(parms)){
+        tidied <- dplyr::filter(tidied, x %in% parms)
+      }
+      
     } else {
       tidied <- with(X,
                      data.frame(x=x,
@@ -64,8 +70,15 @@ tidy_smooths <- function(object, dimension=1, level=0.95){
                                 xlab=xlab,
                                 ylab=ylab,
                                 main=main))
+      
+      if (!is.null(parms)){
+        tidied <- dplyr::filter(tidied, x %in% parms | y %in% parms)
+      }
+      
     }
 
+    
+  
 
     return(tidied)
 

@@ -3,6 +3,7 @@
 S3method(confint,gam)
 export(tidy_smooths)
 export(vif.gam)
+importFrom(dplyr,filter)
 importFrom(dplyr,mutate)
 importFrom(dplyr,rename)
 importFrom(dplyr,select)
