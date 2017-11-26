@@ -55,7 +55,7 @@
 <p>Frustrated with <code>confint</code> not returning a data frame of confidence intervals when applied to a <code>gam</code> from <code>mgcv</code>?</p>
 <p>Want that, but tidy?</p>
 <p>Fear not, <code>mgcv.helper</code> is here!</p>
-<p>This bare bones package allows you to call <code>confint</code> the same way you would for an <code>lm</code>, <code>glm</code> or <code>nls</code> object and get back a tidy data frame filled with the confidence intervals for parametric terms. Arguments taken are:</p>
+<p>This package allows you to call <code>confint</code> the same way you would for an <code>lm</code>, <code>glm</code> or <code>nls</code> object and get back a tidy data frame filled with the confidence intervals for parametric terms. Arguments taken are:</p>
 <ul>
 <li>
 <code>object</code> - a fitted <code>gam</code>
@@ -65,12 +65,12 @@
 <li>
 <code>level</code> - a confidence level</li>
 </ul>
+<p>You can also use <code>tidy_smooths</code> to extract fitted non-parametric smooths (either 1D or 2D but not both at once) from a <code>gam</code> object and store them as a tidy data frame ready for <code><a href="http://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot2::ggplot</a></code>.</p>
 <p>We also provide a method for calculating the vif from a fitted <code>gam</code> object.</p>
 <p>Future plans include:</p>
 <ul>
 <li>Allowing multiple confidence levels to be used</li>
 <li>Renaming columns corresponding to confidence intervals with the quantile value</li>
-<li>Calculating confidence intervals for univariate, non-parametric smooths by returning a tidy data frame with <code>x</code> values and corresponding estimates and lower and upper confidence bounds</li>
 </ul>
 <div id="installation-instructions" class="section level2">
 <h2 class="hasAnchor">

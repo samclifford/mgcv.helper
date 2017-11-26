@@ -5,7 +5,7 @@
 #' \code{"mgcv"}.
 #' @param object a fitted model object of class \code{"gam"}.
 #' @param dimension the dimension of the smooths that are desired for extraction.
-#' @param parms a specification of which parameters are to be given confidence
+#' @param parm a specification of which parameters are to be given confidence
 #' intervals, either a vector of numbers or a vector of names. If missing, all
 #' parameters are considered (not yet implemented).
 #' @param level the confidence level required.
@@ -43,7 +43,7 @@
 
 
 #' @export
-tidy_smooths <- function(object, dimension=1, level=0.95, parms=NULL){
+tidy_smooths <- function(object, dimension=1, level=0.95, parm=NULL){
   
   extract_smooth_internal <- function(X, dimension){
     
@@ -96,14 +96,14 @@ tidy_smooths <- function(object, dimension=1, level=0.95, parms=NULL){
   
   plot.me <- which(dimensions == dimension)
   
-  if (is.null(parms)){
-    parms <- unlist(lapply(X=list.object, FUN = function(x){c(x$xlab, x$ylab)}))
+  if (is.null(parm)){
+    parm <- unlist(lapply(X=list.object, FUN = function(x){c(x$xlab, x$ylab)}))
   }
   
   return(filter(tibble::as.tibble(do.call(rbind, lapply(X = list.object[plot.me],
                                                  FUN = extract_smooth_internal,
                                                  dimension=dimension))),
-                xlab %in% parms | ylab %in% parms))
+                xlab %in% parm | ylab %in% parm))
   
 }
 

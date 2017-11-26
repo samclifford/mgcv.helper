@@ -4,7 +4,7 @@
 \alias{tidy_smooths}
 \title{Tidy Data Frame of Smooth Terms}
 \usage{
-tidy_smooths(object, dimension = 1, level = 0.95, parms = NULL)
+tidy_smooths(object, dimension = 1, level = 0.95, parm = NULL)
 }
 \arguments{
 \item{object}{a fitted model object of class \code{"gam"}.}
@@ -13,7 +13,7 @@ tidy_smooths(object, dimension = 1, level = 0.95, parms = NULL)
 
 \item{level}{the confidence level required.}
 
-\item{parms}{a specification of which parameters are to be given confidence
+\item{parm}{a specification of which parameters are to be given confidence
 intervals, either a vector of numbers or a vector of names. If missing, all
 parameters are considered (not yet implemented).}
 
