@@ -32,6 +32,7 @@ for fitted smooths from a model of class \code{"gam"} from package
 set.seed(101)
 library(dplyr)
 library(mgcv)
+library(mgcv.helper)
 dat <- data.frame(x = runif(n=100),
                   y = runif(n=100)) \%>\%
   dplyr::mutate(z = rnorm(n=100,
