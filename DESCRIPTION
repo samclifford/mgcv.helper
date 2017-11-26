@@ -1,7 +1,7 @@
 Package: mgcv.helper
 Type: Package
 Title: Helper Functions for mgcv
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: person("Sam", "Clifford", role = c("aut", "cre"), email = "samuel.clifford@qut.edu.au")
 Description:
     This package provides a method for obtaining confidence intervals from a 

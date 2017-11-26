@@ -84,7 +84,7 @@ for fitted smooths from a model of class <code>"gam"</code> from package
 <code>"mgcv"</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>tidy_smooths</span>(<span class='no'>object</span>, <span class='kw'>dimension</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+    <pre class="usage"><span class='fu'>tidy_smooths</span>(<span class='no'>object</span>, <span class='kw'>dimension</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>parms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -102,7 +102,7 @@ for fitted smooths from a model of class <code>"gam"</code> from package
       <td><p>the confidence level required.</p></td>
     </tr>
     <tr>
-      <th>parm</th>
+      <th>parms</th>
       <td><p>a specification of which parameters are to be given confidence
 intervals, either a vector of numbers or a vector of names. If missing, all
 parameters are considered (not yet implemented).</p></td>
@@ -123,6 +123,7 @@ confidence intervals for non-parametric terms</p>
     <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>101</span>)
 <span class='fu'>library</span>(<span class='no'>dplyr</span>)
 <span class='fu'>library</span>(<span class='no'>mgcv</span>)
+<span class='fu'>library</span>(<span class='no'>mgcv.helper</span>)
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>),
                   <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>runif</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>)) <span class='kw'>%&gt;%</span>
   <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/dplyr/topics/mutate'>mutate</a></span>(<span class='kw'>z</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>100</span>,
@@ -131,7 +132,20 @@ confidence intervals for non-parametric terms</p>
 
 <span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/mgcv/topics/gam'>gam</a></span>(<span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='no'>z</span> ~ <span class='no'>y</span> + <span class='fu'><a href='http://www.rdocumentation.org/packages/mgcv/topics/s'>s</a></span>(<span class='no'>x</span>))
 
-<span class='fu'>tidy_smooths</span>(<span class='no'>fit1</span>, <span class='kw'>dimension</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='error'>Error in match.fun(FUN): object 'get_lengths_internal' not found</span></div><div class='input'>
+<span class='fu'>tidy_smooths</span>(<span class='no'>fit1</span>, <span class='kw'>dimension</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 100 x 6
+#&gt;             x         y      ymin     ymax   xlab   ylab
+#&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;fctr&gt; &lt;fctr&gt;
+#&gt;  1 0.01018864 0.9574051 0.6449827 1.269828      x s(x,1)
+#&gt;  2 0.02012017 0.9389361 0.6325405 1.245332      x s(x,1)
+#&gt;  3 0.03005170 0.9204671 0.6200983 1.220836      x s(x,1)
+#&gt;  4 0.03998322 0.9019981 0.6076562 1.196340      x s(x,1)
+#&gt;  5 0.04991475 0.8835290 0.5952140 1.171844      x s(x,1)
+#&gt;  6 0.05984627 0.8650600 0.5827718 1.147348      x s(x,1)
+#&gt;  7 0.06977780 0.8465910 0.5703296 1.122852      x s(x,1)
+#&gt;  8 0.07970932 0.8281220 0.5578875 1.098356      x s(x,1)
+#&gt;  9 0.08964085 0.8096529 0.5454453 1.073861      x s(x,1)
+#&gt; 10 0.09957237 0.7911839 0.5330031 1.049365      x s(x,1)
+#&gt; # ... with 90 more rows</div><div class='input'>
 
 
 </div></pre>
