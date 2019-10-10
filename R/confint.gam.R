@@ -61,7 +61,7 @@ confint.gam <- function(object, parm = NULL, level = 0.95, ...) {
 
   nu <- obj.s$residual.df
 
-  my.tbl <- dplyr::inner_join(E, SE) %>%
+  my.tbl <- dplyr::inner_join(E, SE, by = "term") %>%
     dplyr::filter(., term %in% parm) %>%
     dplyr::mutate(.,
                   Statistic = Estimate/se,
