@@ -43,6 +43,4 @@ fit1 <- gam(data=dat, z ~ y + s(x))
 
 tidy_smooths(fit1, dimension=1)
 
-
-
 }

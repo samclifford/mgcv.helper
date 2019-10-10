@@ -9,6 +9,7 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr rename
 #' @importFrom dplyr mutate
+#' @importFrom magrittr "%>%"
 #' @param object a fitted model object of class \code{"gam"}.
 #' @param parm a specification of which parameters are to be given confidence
 #' intervals, either a vector of numbers or a vector of names. If missing, all
@@ -19,6 +20,7 @@
 #' @return A tidy data frame containing parameter names, Estimates and
 #' confidence intervals for parametric terms
 #'
+#' @export confint.gam
 #' @export
 #'
 #' @examples

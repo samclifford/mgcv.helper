@@ -11,6 +11,8 @@
 #' @importFrom stats var
 #' @importFrom mgcv summary.gam
 #' @importFrom tibble tibble
+#' @importFrom magrittr "%>%"
+#' @export vif.gam
 #' @export
 #'
 #' @examples

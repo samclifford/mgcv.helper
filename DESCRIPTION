@@ -1,8 +1,8 @@
 Package: mgcv.helper
 Type: Package
 Title: Helper Functions for mgcv
-Version: 0.1.8
-Authors@R: person("Sam", "Clifford", role = c("aut", "cre"), email = "samuel.clifford@qut.edu.au")
+Version: 0.1.9
+Authors@R: person("Sam", "Clifford", role = c("aut", "cre"), email = "sam.clifford@lshtm.ac.uk")
 Description:
     This package provides a method for obtaining confidence intervals from a 
     fitted gam object from mgcv the way we would expect an lm or nls object to,
@@ -10,7 +10,7 @@ Description:
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Imports: dplyr,
     mgcv,
     magrittr,

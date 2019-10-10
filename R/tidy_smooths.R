@@ -20,7 +20,7 @@
 #' @importFrom mgcv plot.gam
 #' @importFrom stats qt
 #'
-#'
+#' @export tidy_smooths
 #' @export
 #'
 #' @examples
@@ -44,9 +44,15 @@
 
 #' @export
 tidy_smooths <- function(object, dimension=1, level=0.95, parm=NULL){
-  
+
+  if (!(dimension %in% c(1,2))){
+    stop("Unsupported smooth dimension. Please choose dimension = 1 or 2")
+  }
+
   extract_smooth_internal <- function(X, dimension){
-    
+
+
+
     if (dimension == 1){
       tidied <- with(X,
                      data.frame(x=x,
@@ -55,8 +61,10 @@ tidy_smooths <- function(object, dimension=1, level=0.95, parm=NULL){
                                 ymax=fit + se*se.mult,
                                 xlab=xlab,
                                 ylab=ylab))
-      
-    } else {
+
+    }
+
+    if (dimension == 2){
       tidied <- with(X,
                      data.frame(x=x,
                                 y=y,
@@ -66,44 +74,43 @@ tidy_smooths <- function(object, dimension=1, level=0.95, parm=NULL){
                                 xlab=xlab,
                                 ylab=ylab,
                                 main=main))
-      
+
     }
-    
-    
-    
-    
+
+
+
     return(tidied)
-    
+
   }
-  
+
   # this is awful practice
   get_lengths_internal <- function(x){
     unlist(lapply(x[c("x", "y","fit")], FUN="length"))
   }
-  
+
   # can only handle 1 and 2d smooths at this point
-  
+
   list.object <- mgcv::plot.gam(object,
                                 select=0,
                                 se=abs(stats::qt(p = (1-level)/2,
                                                  df = object$df.residual)))
-  
-  
-  
+
+
+
   lengths <- lapply(FUN = get_lengths_internal, list.object)
   dimensions <- sapply(X = lengths,
                        FUN = function(x){"y" %in% names(x)}) + 1
-  
+
   plot.me <- which(dimensions == dimension)
-  
+
   if (is.null(parm)){
     parm <- unlist(lapply(X=list.object, FUN = function(x){c(x$xlab, x$ylab)}))
   }
-  
-  return(filter(tibble::as.tibble(do.call(rbind, lapply(X = list.object[plot.me],
+
+  return(filter(tibble::as_tibble(do.call(rbind, lapply(X = list.object[plot.me],
                                                  FUN = extract_smooth_internal,
                                                  dimension=dimension))),
                 xlab %in% parm | ylab %in% parm))
-  
+
 }
 
